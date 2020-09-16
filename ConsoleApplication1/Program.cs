@@ -6,18 +6,131 @@ using System.Threading.Tasks;
 
 namespace ConsoleApplication1
 {
+    enum DayOfWeek: long
+    {
+        Monday= 10000000000, Tuesday, Wednesday, Thursday, Friday, Saturday, Sanday
+    }
+
     class Program
     {
         static void Main(string[] args)
         {
             Console.Beep(3000, 3000);
-            
+
             Console.BackgroundColor = ConsoleColor.Blue;
             Console.ForegroundColor = ConsoleColor.White;
             Console.Clear();
-           // Console.SetCursorPosition(10, 10);
+            // Console.SetCursorPosition(10, 10);
             Console.WriteLine("Hello C#");
             Console.Title = "My C#";
+
+
+            DayOfWeek day = DayOfWeek.Monday;
+            switch (day)
+            {
+                case DayOfWeek.Monday:
+                    break;
+                case DayOfWeek.Tuesday:
+                    break;
+                case DayOfWeek.Wednesday:
+                    break;
+                case DayOfWeek.Thursday:
+                    break;
+                case DayOfWeek.Friday:
+                    break;
+                case DayOfWeek.Saturday:
+                    break;
+                case DayOfWeek.Sanday:
+                    break;
+                default:
+                    break;
+            }
+            string[] st = Enum.GetNames(typeof (DayOfWeek));
+            foreach (var item in st)
+            {
+                Console.WriteLine(item);
+            }
+            Console.WriteLine(Enum.GetValues(typeof(DayOfWeek)).GetValue(2));
+            string s = Enum.GetName(typeof(DayOfWeek), 0);
+            Console.WriteLine(s);
+            Console.WriteLine(Enum.Format(typeof(DayOfWeek), DayOfWeek.Monday,"D"));
+
+            Console.WriteLine(day.GetHashCode());
+
+            //string st1 = "1, 3, 44, 5, 66, 7, 4, 33, 22";
+            //string[] st2 = st1.Split(", ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+            //int[] arr = new int[st2.Length];
+            //for (int i = 0; i < arr.Length; i++)
+            //{
+            //    arr[i] = int.Parse(st2[i]);
+            //    Console.Write(arr[i] + " ");
+            //}
+            //Console.WriteLine();
+
+
+            //char[] st2 = { 'H', 'e', 'l', 'l', 'o' };
+            //string st3 = new string(st2);
+            //string st4 = new string('#', 10);
+            //Console.WriteLine(st1);
+            //Console.WriteLine(st2);
+            //Console.WriteLine(st3);
+            //Console.WriteLine(st4);
+
+            //Console.WriteLine(st1.Contains("e"));
+
+            //st1.CopyTo(0, st2, 2, 3);
+            //Console.WriteLine(st2);
+            //st1.IndexOfAny("abc".ToCharArray());
+            //Console.WriteLine(st1.PadLeft(20, '#'));
+            //Console.WriteLine(st1.PadRight(20, '#'));
+            //string[] st7 = st1.Split(",".ToCharArray());
+            //string[] st8 = st1.Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+            //foreach (var item in st7)
+            //{
+            //    Console.WriteLine(item);
+            //}
+
+            //string st9 = String.Join(", ", st7);
+            //Console.WriteLine(st9);
+
+
+            //int[] arr = new int[] { 10, 25, 3, 4, 5 };
+            //int[] arr1 = new int[4] { 1, 2, 3, 4 };
+            //int[] arr2 = new int[10];
+            ////arr.CopyTo(arr2, 2);
+            ////Console.WriteLine(arr.GetLength(0));
+            //Console.WriteLine(arr.Rank);
+            //arr.SetValue(33, 2);
+
+            ////Array.Clear(arr, 2, 2);
+            ////Array.Copy(arr, arr2, 3);
+            //Console.WriteLine(Array.Find(arr, Foo));
+            //int[] arr5 = Array.FindAll(arr, Foo);
+            //Array.Sort(arr, 0, 3);
+            //Console.WriteLine(Array.BinarySearch(arr, 25));
+
+            //foreach (var item in arr)
+            //{
+            //    Console.Write(item + " ");
+            //}
+            //Console.WriteLine();
+
+
+            //int[,] arr6 = new int[2, 3] { { 2, 4, 6 }, { 2, 4, 5 } };
+            //Console.WriteLine(arr6[1, 1]);
+
+            //int[][] arrZ = new int[3][] {new int[] {2,5,3,5},
+            //               new int[] {3,4},
+            //               new [] {3,3,3,4,5,6,6} };
+            //Array.Sort(arrZ[0]);
+            //for (int i = 0; i < arrZ.Length; i++)
+            //{
+            //    foreach (var item in arrZ[i])
+            //    {
+            //        Console.Write(item + " ");
+            //    }
+            //    Console.WriteLine();
+            //}
 
             //int? a = null;
             //Console.WriteLine(a);
@@ -58,18 +171,18 @@ namespace ConsoleApplication1
             //    default:
             //        break;
             //}
-            int[] arr = new int[5];
-            Random rand = new Random();
-            for (int i = 0; i < arr.Length; i++)
-            {
-                arr[i] = rand.Next(20, 50);
-            }
-            foreach (var item in arr)
-            {
-                Console.Write(item + " ");
-            }
-            
-            
+            //int[] arr = new int[5];
+            //Random rand = new Random();
+            //for (int i = 0; i < arr.Length; i++)
+            //{
+            //    arr[i] = rand.Next(20, 50);
+            //}
+            //foreach (var item in arr)
+            //{
+            //    Console.Write(item + " ");
+            //}
+
+
 
             //int @int = 8;
             //Console.WriteLine(@int);
@@ -77,6 +190,11 @@ namespace ConsoleApplication1
 
 
             Console.Read();
+        }
+
+        static bool Foo(int a)
+        {
+            return a > 5;
         }
     }
 }
