@@ -6,16 +6,46 @@ using System.Threading.Tasks;
 
 namespace ConsoleApplication1
 {
-    enum DayOfWeek: long
+    //enum DayOfWeek: long
+    //{
+    //    Monday= 10000000000, Tuesday, Wednesday, Thursday, Friday, Saturday, Sanday
+    //}
+
+    struct MyStruct
     {
-        Monday= 10000000000, Tuesday, Wednesday, Thursday, Friday, Saturday, Sanday
+        public int Age;
+        public string Name;
+
+        public MyStruct(int a, string n)
+        {
+            Age = a;
+            Name = n;
+        }
     }
+
+
+   
+
+    //class MyClass2
+    //{
+    //    public void Funk2(Student st)
+    //    {
+    //        st.Print();
+    //    }
+    //}
 
     class Program
     {
+        static void Func1(ref int[] arr, out int a)
+        {
+            arr = new int[] { 4, 5, 6 };
+            //arr[0] = 99;
+            a = 88;
+        }
+
         static void Main(string[] args)
         {
-            Console.Beep(3000, 3000);
+            // Console.Beep(3000, 3000);
 
             Console.BackgroundColor = ConsoleColor.Blue;
             Console.ForegroundColor = ConsoleColor.White;
@@ -25,37 +55,65 @@ namespace ConsoleApplication1
             Console.Title = "My C#";
 
 
-            DayOfWeek day = DayOfWeek.Monday;
-            switch (day)
-            {
-                case DayOfWeek.Monday:
-                    break;
-                case DayOfWeek.Tuesday:
-                    break;
-                case DayOfWeek.Wednesday:
-                    break;
-                case DayOfWeek.Thursday:
-                    break;
-                case DayOfWeek.Friday:
-                    break;
-                case DayOfWeek.Saturday:
-                    break;
-                case DayOfWeek.Sanday:
-                    break;
-                default:
-                    break;
-            }
-            string[] st = Enum.GetNames(typeof (DayOfWeek));
-            foreach (var item in st)
-            {
-                Console.WriteLine(item);
-            }
-            Console.WriteLine(Enum.GetValues(typeof(DayOfWeek)).GetValue(2));
-            string s = Enum.GetName(typeof(DayOfWeek), 0);
-            Console.WriteLine(s);
-            Console.WriteLine(Enum.Format(typeof(DayOfWeek), DayOfWeek.Monday,"D"));
+            Student student = new Student("Ivan", 30);
+            Student student2 = new Student();
+            student2.Print();
+            student.Print();
+            student.Mark[1] = 6;
 
-            Console.WriteLine(day.GetHashCode());
+            student.Day = 9;
+            student.Month1 = 9;
+            Console.WriteLine(student.Month1);
+            student.Print2();
+
+            Student student3 = new Student { Day = 20, Month1 = 5 };
+            student3.Print2();
+
+
+            //int[] arr = { 1, 2, 3 };
+            //int a = 5;
+            //Console.WriteLine($"arr[0] = {arr[0]}, a = {a}");
+            //Func1(ref arr, out a);
+            //Console.WriteLine($"arr[0] = {arr[0]}, a = {a}");
+
+            ////Console.WriteLine(Sum(new int[] { 1, 2, 3 }));
+            //Console.WriteLine(Sum(3, 4, 5, 6));
+
+            //MyStruct myStruct = new MyStruct(30, "Ivan");
+            //Console.WriteLine(myStruct.Age);
+
+
+            //DayOfWeek day = DayOfWeek.Monday;
+            //switch (day)
+            //{
+            //    case DayOfWeek.Monday:
+            //        break;
+            //    case DayOfWeek.Tuesday:
+            //        break;
+            //    case DayOfWeek.Wednesday:
+            //        break;
+            //    case DayOfWeek.Thursday:
+            //        break;
+            //    case DayOfWeek.Friday:
+            //        break;
+            //    case DayOfWeek.Saturday:
+            //        break;
+            //    case DayOfWeek.Sanday:
+            //        break;
+            //    default:
+            //        break;
+            //}
+            //string[] st = Enum.GetNames(typeof (DayOfWeek));
+            //foreach (var item in st)
+            //{
+            //    Console.WriteLine(item);
+            //}
+            //Console.WriteLine(Enum.GetValues(typeof(DayOfWeek)).GetValue(2));
+            //string s = Enum.GetName(typeof(DayOfWeek), 0);
+            //Console.WriteLine(s);
+            //Console.WriteLine(Enum.Format(typeof(DayOfWeek), DayOfWeek.Monday,"D"));
+
+            //Console.WriteLine(day.GetHashCode());
 
             //string st1 = "1, 3, 44, 5, 66, 7, 4, 33, 22";
             //string[] st2 = st1.Split(", ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
@@ -191,6 +249,17 @@ namespace ConsoleApplication1
 
             Console.Read();
         }
+
+        static int Sum(int b, params int[] arr)
+        {
+            int res = 0;
+            foreach (var item in arr)
+            {
+                res += item;
+            }
+            return res;
+        }
+
 
         static bool Foo(int a)
         {
