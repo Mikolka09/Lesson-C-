@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NS = NS2.NS3;
+using Human1;
 
 namespace ConsoleApplication1
 {
@@ -11,20 +13,26 @@ namespace ConsoleApplication1
     //    Monday= 10000000000, Tuesday, Wednesday, Thursday, Friday, Saturday, Sanday
     //}
 
-    struct MyStruct
+    //struct MyStruct
+    //{
+    //    public int Age;
+    //    public string Name;
+
+    //    public MyStruct(int a, string n)
+    //    {
+    //        Age = a;
+    //        Name = n;
+    //    }
+    //}
+
+
+   class MyClass
+{
+    public void print()
     {
-        public int Age;
-        public string Name;
-
-        public MyStruct(int a, string n)
-        {
-            Age = a;
-            Name = n;
-        }
+        Console.WriteLine("ConsoleApplication1");
     }
-
-
-   
+}
 
     //class MyClass2
     //{
@@ -55,19 +63,74 @@ namespace ConsoleApplication1
             Console.Title = "My C#";
 
 
-            Student student = new Student("Ivan", 30);
-            Student student2 = new Student();
-            student2.Print();
-            student.Print();
-            student.Mark[1] = 6;
 
-            student.Day = 9;
-            student.Month1 = 9;
-            Console.WriteLine(student.Month1);
-            student.Print2();
+            Human[] humen = new Human[] { new Employee("Ivan", 25, 2500),
+                                          new Scientist("Olga", 22, "Aspirant"),
+                                          new Student1("Serg", 25, 123456)};
+            foreach (var item in humen)
+            {
+                item.Print();
+                item.WhoAmI();
+                Console.WriteLine();
 
-            Student student3 = new Student { Day = 20, Month1 = 5 };
-            student3.Print2();
+                //try
+                //{
+                //    ((Employee)item).PrintEmployee();
+                //}
+                //catch
+                //{
+                //    Console.WriteLine("Not Employee");
+                //}
+
+                //Scientist sc = item as Scientist;
+                //if (sc != null)
+                //    sc.PrintScientist();
+                //else
+                //    Console.WriteLine("Not Scientist");
+
+
+                //if (item is Student1)
+                //{
+                //    (item as Student1).PrintStudent1();
+                //}
+                //else
+                //    Console.WriteLine("Not Student");
+
+            }
+
+            //Employee employee = new Employee("Ivan", 25, 2500);
+            //employee.Print();
+
+            //Scientist scientist = new Scientist("Olga", 22, "Aspirant");
+            //scientist.Print();
+
+            //Student1 student = new Student1("Serg", 25, 123456);
+            //student.Print();
+
+
+            //MyClass m = new MyClass();
+            //m.print();
+
+            //ConsoleApplication2.MyClass mn = new ConsoleApplication2.MyClass();
+            //mn.print();
+
+            //NS::Student s = new NS::Student();
+
+
+
+            //Student student = new Student("Ivan", 30);
+            //Student student2 = new Student();
+            //student2.Print();
+            //student.Print();
+            //student.Mark[1] = 6;
+
+            //student.Day = 9;
+            //student.Month1 = 9;
+            //Console.WriteLine(student.Month1);
+            //student.Print2();
+
+            //Student student3 = new Student { Day = 20, Month1 = 5 };
+            //student3.Print2();
 
 
             //int[] arr = { 1, 2, 3 };
@@ -264,6 +327,18 @@ namespace ConsoleApplication1
         static bool Foo(int a)
         {
             return a > 5;
+        }
+    }
+}
+
+namespace ConsoleApplication2
+{
+
+    class MyClass
+    {
+        public void print()
+        {
+            Console.WriteLine("ConsoleApplication2");
         }
     }
 }
