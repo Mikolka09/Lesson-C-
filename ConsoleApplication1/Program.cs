@@ -26,13 +26,13 @@ namespace ConsoleApplication1
     //}
 
 
-   class MyClass
-{
-    public void print()
+    class MyClass
     {
-        Console.WriteLine("ConsoleApplication1");
+        public void print()
+        {
+            Console.WriteLine("ConsoleApplication1");
+        }
     }
-}
 
     //class MyClass2
     //{
@@ -63,40 +63,92 @@ namespace ConsoleApplication1
             Console.Title = "My C#";
 
 
+            MultiVector mv = new MultiVector(3);
+            mv[0] = new Vector(3, 5);
+            mv[1] = new Vector(4, 8);
+            mv[2] = new Vector(1, 2);
 
-            Human[] humen = new Human[] { new Employee("Ivan", 25, 2500),
-                                          new Scientist("Olga", 22, "Aspirant"),
-                                          new Student1("Serg", 25, 123456)};
-            foreach (var item in humen)
+            for (int i = 0; i < mv.Length; i++)
             {
-                item.Print();
-                item.WhoAmI();
-                Console.WriteLine();
-
-                //try
-                //{
-                //    ((Employee)item).PrintEmployee();
-                //}
-                //catch
-                //{
-                //    Console.WriteLine("Not Employee");
-                //}
-
-                //Scientist sc = item as Scientist;
-                //if (sc != null)
-                //    sc.PrintScientist();
-                //else
-                //    Console.WriteLine("Not Scientist");
-
-
-                //if (item is Student1)
-                //{
-                //    (item as Student1).PrintStudent1();
-                //}
-                //else
-                //    Console.WriteLine("Not Student");
-
+                Console.WriteLine(mv[i]); 
             }
+
+
+
+            //Vector a = new Vector(new Point(0, 0), new Point(1, 1));
+            //Vector b = new Vector(new Point(0, 0), new Point(1, 0));
+            //Console.WriteLine(a);
+            //Console.WriteLine(b);
+            ////Vector c = a + b;
+            //Vector c = a * 5;
+            //Console.WriteLine(c);
+            //// a += b;
+            //Console.WriteLine(a);
+
+            ////Employee e = new Employee("Ivan", 25, 2500);
+            ////e.Print();
+            //////e = -e;
+            ////e++;
+            ////++e;
+            ////e.Print();
+            ////e--;
+            ////--e;
+            ////e.Print();
+
+            //if (!a)
+            //{
+            //    Console.WriteLine("True");
+            //}
+            //else
+            //    Console.WriteLine("False");
+
+
+            //double d = (double)a;
+
+            //Vector s = 8;
+            //Console.WriteLine(s);
+
+
+
+            // -
+            // ++
+            // --
+
+            // = . ?: is as new - не перегружаются
+
+            //Human[] humen = new Human[] { new Employee("Ivan", 25, 2500),
+            //                              new Scientist("Olga", 22, "Aspirant"),
+            //                              new Student1("Serg", 25, 123456)};
+            //foreach (var item in humen)
+            //{
+            //    item.Print();
+            //    item.WhoAmI();
+            //    Console.WriteLine();
+
+            //try
+            //{
+            //    ((Employee)item).PrintEmployee();
+            //}
+            //catch
+            //{
+            //    Console.WriteLine("Not Employee");
+            //}
+
+            //Scientist sc = item as Scientist;
+            //if (sc != null)
+            //    sc.PrintScientist();
+            //else
+            //    Console.WriteLine("Not Scientist");
+
+
+            //if (item is Student1)
+            //{
+            //    (item as Student1).PrintStudent1();
+            //}
+            //else
+            //    Console.WriteLine("Not Student");
+
+            //}
 
             //Employee employee = new Employee("Ivan", 25, 2500);
             //employee.Print();

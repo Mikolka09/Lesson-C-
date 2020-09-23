@@ -44,6 +44,23 @@ namespace Human1
             base.Print();
             Console.WriteLine($" Salary - {Salary}");
         }
+
+        public static Employee operator-(Employee e)
+        {
+            return new Employee(e.Name, e.Age, -e.Salary);
+        }
+
+        public static Employee operator++(Employee e)
+        {
+            e.Salary++;
+            return e;
+        }
+
+        public static Employee operator --(Employee e)
+        {
+            e.Salary--;
+            return e;
+        }
     }
 
     public class Scientist : Human
