@@ -25,84 +25,84 @@ namespace Human1
         }
     }
 
-    public class Employee : Human
-    {
-        double Salary;
-        public Employee(string n, int a, double s) : base(n, a)
-        {
+   // public class Employee : Human
+   // {
+   //     double Salary;
+   //     public Employee(string n, int a, double s) : base(n, a)
+   //     {
 
-            Salary = s;
-        }
+   //         Salary = s;
+   //     }
 
-        public override void WhoAmI()
-        {
-            Console.Write($"I Employee");
-        }
+   //     public override void WhoAmI()
+   //     {
+   //         Console.Write($"I Employee");
+   //     }
 
-        public override void Print()
-        {
-            base.Print();
-            Console.WriteLine($" Salary - {Salary}");
-        }
+   //     public override void Print()
+   //     {
+   //         base.Print();
+   //         Console.WriteLine($" Salary - {Salary}");
+   //     }
 
-        public static Employee operator-(Employee e)
-        {
-            return new Employee(e.Name, e.Age, -e.Salary);
-        }
+   //     public static Employee operator-(Employee e)
+   //     {
+   //         return new Employee(e.Name, e.Age, -e.Salary);
+   //     }
 
-        public static Employee operator++(Employee e)
-        {
-            e.Salary++;
-            return e;
-        }
+   //     public static Employee operator++(Employee e)
+   //     {
+   //         e.Salary++;
+   //         return e;
+   //     }
 
-        public static Employee operator --(Employee e)
-        {
-            e.Salary--;
-            return e;
-        }
-    }
+   //     public static Employee operator --(Employee e)
+   //     {
+   //         e.Salary--;
+   //         return e;
+   //     }
+   // }
 
-    public class Scientist : Human
-    {
-        string ScientificTitle;
+   // public class Scientist : Human
+   // {
+   //     string ScientificTitle;
 
-        public Scientist(string n, int a, string st) : base(n, a)
-        {
-            ScientificTitle = st;
-        }
-        public override void WhoAmI()
-        {
-            Console.Write($"I Scientist");
-        }
+   //     public Scientist(string n, int a, string st) : base(n, a)
+   //     {
+   //         ScientificTitle = st;
+   //     }
+   //     public override void WhoAmI()
+   //     {
+   //         Console.Write($"I Scientist");
+   //     }
 
-        public override void Print()
-        {
-            base.Print();
-            Console.WriteLine($" ScientificTitle - {ScientificTitle}");
-        }
-    }
+   //     public override void Print()
+   //     {
+   //         base.Print();
+   //         Console.WriteLine($" ScientificTitle - {ScientificTitle}");
+   //     }
+   // }
 
-   public  class Student1 : Scientist
-    {
-        //new string Name;
-        int StudentCard;
+   //public  class Student1 : Scientist
+   // {
+   //     //new string Name;
+   //     int StudentCard;
 
-        public Student1(string n, int a, int sc) : base(n, a, "Student1")
-        {
-            StudentCard = sc;
-            //Name = "Borya";
-        }
-        public override void WhoAmI()
-        {
-            Console.Write($"I Student1");
-        }
-        public override void Print()
-        {
-            base.Print();
-            Console.WriteLine($"StudentCard - {StudentCard}");//, Name - {Name}");
-        }
-    }
+   //     public Student1(string n, int a, int sc) : base(n, a, "Student1")
+   //     {
+   //         StudentCard = sc;
+   //         //Name = "Borya";
+   //     }
+   //     public override void WhoAmI()
+   //     {
+   //         Console.Write($"I Student1");
+   //     }
+   //     public override void Print()
+   //     {
+   //         base.Print();
+   //         Console.WriteLine($"StudentCard - {StudentCard}");//, Name - {Name}");
+   //     }
+   // }
 
     //class Stu2 :Student1
     //{

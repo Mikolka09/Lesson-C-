@@ -108,6 +108,10 @@ namespace ConsoleApplication1
     class MultiVector
     {
         Vector[] vectors;
+        Vector[,] vectors2;
+        public int Row { get; private set; }
+        public int Col { get; private set; }
+
 
         public int Length
         {
@@ -116,7 +120,14 @@ namespace ConsoleApplication1
 
         public MultiVector(int size)
         {
+            Row = Row;
+            Col = Col;
             vectors = new Vector[size];
+        }
+
+        public MultiVector(int row, int col)
+        {
+            vectors2 = new Vector[row, col];
         }
 
         public Vector this[int ind]
@@ -133,5 +144,30 @@ namespace ConsoleApplication1
                 vectors[ind] = value;
             }
         }
+
+        public Vector this[int r, int c]
+        {
+            get
+            {
+                return vectors2[r, c];
+            }
+
+            set
+            {
+                vectors2[r, c] = value;
+            }
+        }
+
+        public void Print()
+        {
+            for (int i = 0; i < vectors2.GetLength(0); i++)
+            {
+                for (int j = 0; j < vectors2.GetLength(1); j++)
+                {
+                    Console.WriteLine(vectors2[i, j]);
+                }
+            }
+        }
+
     }
 }

@@ -63,17 +63,117 @@ namespace ConsoleApplication1
             Console.Title = "My C#";
 
 
-            MultiVector mv = new MultiVector(3);
-            mv[0] = new Vector(3, 5);
-            mv[1] = new Vector(4, 8);
-            mv[2] = new Vector(1, 2);
+            Group group = new Group();
 
-            for (int i = 0; i < mv.Length; i++)
+            foreach (Student1 item in group)
             {
-                Console.WriteLine(mv[i]); 
+                Console.WriteLine(item);
+            }
+            Console.WriteLine();
+            group.Sort(new StudentCardComparer());
+            foreach (Student1 item in group)
+            {
+                Console.WriteLine(item);
             }
 
 
+
+
+            //Director director = new Director
+            //{
+            //    Name = "Ivan Ivanovich",
+            //    BirthDay = new DateTime(1950, 5, 15),
+            //    Position = "Director",
+            //    Salary = 10000
+            //};
+
+            //Console.WriteLine(director);
+
+            //IWorker seller = new Seller
+            //{
+            //    Name = "Svenlana Petrovna",
+            //    BirthDay = new DateTime(1970, 10, 10),
+            //    Position = "Seller",
+            //    Salary = 5000
+            //};
+
+            //director.ListOfWorkers = new List<IWorker>
+            //{
+            //    seller,
+            //    new Casher
+            //    {
+            //        Name = "Tatyana Ivanovna",
+            //        BirthDay = new DateTime(1980, 12, 16),
+            //        Position = "Casher",
+            //        Salary = 4000
+            //    },
+            //    new Cleaner
+            //    {
+            //        Name = "Baba Klava",
+            //        BirthDay = new DateTime(1940, 1, 4),
+            //        Position = "Cleaner",
+            //        Salary = 2000
+            //    }
+
+            //};
+
+            //foreach (var item in director.ListOfWorkers)
+            //{
+            //    Console.WriteLine(item);
+            //    item.Work();
+            //}
+
+           
+
+
+
+            //IndexerClass indexerClass = new IndexerClass();
+            //for (int i = 0; i < 5; i++)
+            //{
+            //    Console.WriteLine(indexerClass[i]);
+            //}
+            //Console.WriteLine();
+
+            //foreach (var item in Enum.GetNames(typeof(Numbers)))
+            //{
+            //    Console.WriteLine(indexerClass[item]);
+            //}
+
+            //IterC interC = new IterC();
+            //interC.Show();
+
+            //IA iA = new IterC();
+            //iA.Show();
+
+            //IB iB = new IterC();
+            //iB.Show();
+
+
+
+
+
+            //MultiVector mv = new MultiVector(2, 2);
+            //mv[0, 0] = new Vector(3, 5);
+            //mv[0, 1] = new Vector(4, 8);
+            //mv[1, 0] = new Vector(1, 2);
+            //mv[1, 1] = new Vector(1, 5);
+
+            // Console.WriteLine(mv[0, 0]);
+
+            //for (int i = 0; i < mv.Length; i++)
+            //{
+            //    Console.WriteLine(mv[i]);
+            //}
+
+            //for (int i = 0; i < mv.Row; i++)
+            //{
+            //    for (int j = 0; j < mv.Col; j++)
+            //    {
+            //        Console.WriteLine(mv[i, j]);
+            //    }
+            //}
+
+            //mv.Print();
 
             //Vector a = new Vector(new Point(0, 0), new Point(1, 1));
             //Vector b = new Vector(new Point(0, 0), new Point(1, 0));
@@ -365,22 +465,22 @@ namespace ConsoleApplication1
             Console.Read();
         }
 
-        static int Sum(int b, params int[] arr)
+    static int Sum(int b, params int[] arr)
+    {
+        int res = 0;
+        foreach (var item in arr)
         {
-            int res = 0;
-            foreach (var item in arr)
-            {
-                res += item;
-            }
-            return res;
+            res += item;
         }
-
-
-        static bool Foo(int a)
-        {
-            return a > 5;
-        }
+        return res;
     }
+
+
+    static bool Foo(int a)
+    {
+        return a > 5;
+    }
+}
 }
 
 namespace ConsoleApplication2
