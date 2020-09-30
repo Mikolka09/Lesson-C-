@@ -53,28 +53,139 @@ namespace ConsoleApplication1
 
         static void Main(string[] args)
         {
-            // Console.Beep(3000, 3000);
+            //Console.Beep(3000, 3000);
 
             Console.BackgroundColor = ConsoleColor.Blue;
             Console.ForegroundColor = ConsoleColor.White;
             Console.Clear();
-            // Console.SetCursorPosition(10, 10);
+            //Console.SetCursorPosition(10, 10);
             Console.WriteLine("Hello C#");
             Console.Title = "My C#";
 
 
-            Group group = new Group();
+            int aslkdngfal = 5;
+            Console.WriteLine(nameof(aslkdngfal));
 
-            foreach (Student1 item in group)
-            {
-                Console.WriteLine(item);
-            }
-            Console.WriteLine();
-            group.Sort(new StudentCardComparer());
-            foreach (Student1 item in group)
-            {
-                Console.WriteLine(item);
-            }
+            //try
+            //{
+            //    TestNull testNull = new TestNull(null);
+            //}
+            //catch(Exception e)
+            //{
+            //    Console.WriteLine(e.Message);
+            //}
+
+
+
+            //int a, b;
+            //try
+            //{
+            //    a = int.Parse(Console.ReadLine());
+            //    b = int.Parse(Console.ReadLine());
+            //    int c = Div(a, b);
+            //    Console.WriteLine(c);
+            //}
+            //catch(Exception e) when (e.InnerException != null)
+            //{
+            //    Console.WriteLine(e.Message);
+            //    Console.WriteLine(e.InnerException.Message);
+            //}
+
+
+            //byte a = (byte)255;
+            //Console.WriteLine(a);
+            //try
+            //{
+            //    checked
+            //    {
+            //        a++;
+            //    }
+            //}
+            //catch(OverflowException e)
+            //{
+            //    Console.WriteLine(e.Message);
+            //}
+
+            //Console.WriteLine(a);
+
+
+            //int a, b;
+
+            //try
+            //{
+            //    try
+            //    {
+            //        a = int.Parse(Console.ReadLine());
+            //        b = int.Parse(Console.ReadLine());
+            //        int c = a / b;
+            //        throw new MyException();
+            //        Console.WriteLine(c);
+
+            //    }
+            //    catch (DivideByZeroException e)
+            //    {
+            //        throw;
+            //        //Console.WriteLine(e.DateTime_);
+            //        //Console.WriteLine(e.Message);
+            //        //Console.WriteLine(e.GetType().FullName);
+            //        //Console.WriteLine(e.Source);
+            //        //Console.WriteLine(e.StackTrace);
+            //        //Console.WriteLine(e.TargetSite);
+            //        //Console.WriteLine(e.HResult);
+            //        //Console.WriteLine(e.HelpLink);
+            //        //Console.WriteLine(e.InnerException);
+            //        //Console.WriteLine(e.Data);
+            //    }
+            //}
+            //catch (Exception e)
+            //{
+            //    Console.WriteLine("Что-то не так!");
+            //    Console.WriteLine(e.Message);
+            //    Console.WriteLine(e.GetType().FullName);
+            //    Console.WriteLine(e.Source);
+            //    Console.WriteLine(e.StackTrace);
+            //    Console.WriteLine(e.TargetSite);
+            //}
+            //finally
+            //{
+            //    Console.WriteLine("Выполниться всегда");
+            //}
+
+
+            //Student1 st1 = new Student1
+            //{
+            //    Name = "Tatyana",
+            //    BirthDay = new DateTime(1980, 12, 16),
+            //    StudentCard = new StudentCard
+            //    {
+            //        Series = "AA",
+            //        Number = 123456
+            //    }
+            //};
+
+            //Student1 st2 = (Student1)st1.Clone();
+
+            //Console.WriteLine(st1);
+            //Console.WriteLine(st2);
+            //st1.Name = "Olga";
+            //Console.WriteLine(st1);
+            //Console.WriteLine(st2);
+            //st1.StudentCard.Series = "XX";
+            //Console.WriteLine(st1);
+            //Console.WriteLine(st2);
+
+            //Group group = new Group();
+
+            //foreach (Student1 item in group)
+            //{
+            //    Console.WriteLine(item);
+            //}
+            //Console.WriteLine();
+            //group.Sort(new StudentCardComparer());
+            //foreach (Student1 item in group)
+            //{
+            //    Console.WriteLine(item);
+            //}
 
 
 
@@ -123,7 +234,7 @@ namespace ConsoleApplication1
             //    item.Work();
             //}
 
-           
+
 
 
 
@@ -465,7 +576,43 @@ namespace ConsoleApplication1
             Console.Read();
         }
 
-    static int Sum(int b, params int[] arr)
+        static int Div(int a, int b)
+        {
+            int c = 0;
+            try
+            {
+                c = a / b;
+            }
+            catch(DivideByZeroException e)
+            {
+                throw new Exception("Filtr", e);
+            }
+            return c;
+        }
+
+        static void f1()
+        {
+            f2();
+        }
+
+        static void f2()
+        {
+            throw new Exception("XXXXXXX");
+        }
+
+        static void f()
+        {
+            try
+            {
+                f1();
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+            }
+        }
+
+        static int Sum(int b, params int[] arr)
     {
         int res = 0;
         foreach (var item in arr)

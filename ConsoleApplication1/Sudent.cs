@@ -19,7 +19,7 @@ namespace ConsoleApplication1
     }
 
 
-   class Student1: IComparable
+   class Student1: IComparable, ICloneable
     {
         public string Name { get; set; }
         public DateTime BirthDay { get; set; }
@@ -34,6 +34,17 @@ namespace ConsoleApplication1
         public int CompareTo(object obj)
         {
             return Name.CompareTo((obj as Student1).Name);
+        }
+
+        public object Clone()
+        {
+            Student1 temp = (Student1)this.MemberwiseClone();
+            temp.StudentCard = new StudentCard
+            {
+                Series = this.StudentCard.Series,
+                Number = this.StudentCard.Number
+            };
+            return temp;
         }
     }
     
@@ -108,6 +119,8 @@ namespace ConsoleApplication1
         {
             if(x is Student1 && y is Student1)
             return DateTime.Compare((x as Student1).BirthDay, (y as Student1).BirthDay);
+            else if (x is Employee && y is Employee)
+                return DateTime.Compare((x as Employee).BirthDay, (y as Employee).BirthDay);
             throw new NotImplementedException("Только джля класса Student1");
         }
     }
@@ -128,4 +141,16 @@ namespace ConsoleApplication1
 
 
 
+}
+
+
+
+public class MyException : ApplicationException
+{
+    public DateTime DateTime_ { get; set; }
+
+    public MyException()
+    {
+        DateTime_ = DateTime.Now;
+    }
 }

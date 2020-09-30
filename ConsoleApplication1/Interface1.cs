@@ -189,6 +189,18 @@ namespace ConsoleApplication1
         //}
     }
 
+
+    class TestNull
+    {
+        public string Name { get; set; }
+        public TestNull(string name)
+        {
+            if (name == null)
+                throw new ArgumentNullException(nameof(name));
+            Name = name;
+        }
+    }
+
     
     
 
