@@ -139,18 +139,41 @@ namespace ConsoleApplication1
     }
 
 
-
-
-}
-
-
-
-public class MyException : ApplicationException
-{
-    public DateTime DateTime_ { get; set; }
-
-    public MyException()
+    public class MyException : ApplicationException
     {
-        DateTime_ = DateTime.Now;
+        public DateTime DateTime_ { get; set; }
+
+        public MyException()
+        {
+            DateTime_ = DateTime.Now;
+        }
     }
+
+
+    class Garbage: IDisposable
+    {
+        public void OpenDB()
+        {
+            Console.WriteLine("Open DB");
+            Console.WriteLine("Create Table.....");
+            //throw new Exception("No responce");
+        }
+        public void CreatGarbage()
+        {
+            for (int i = 0; i < 100000; i++)
+            {
+                Student1 p = new Student1();
+            }
+        }
+
+        public void Dispose()
+        {
+            Console.WriteLine("Dispos DB");
+        }
+    }
+
 }
+
+
+
+
