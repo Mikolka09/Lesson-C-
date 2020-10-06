@@ -19,7 +19,7 @@ namespace ConsoleApplication1
     }
 
 
-   class Student1: IComparable, ICloneable
+    class Student1 : IComparable, ICloneable
     {
         public string Name { get; set; }
         public DateTime BirthDay { get; set; }
@@ -47,10 +47,10 @@ namespace ConsoleApplication1
             return temp;
         }
     }
-    
 
 
-    class Group: IEnumerable
+
+    class Group : IEnumerable
     {
         Student1[] students =
         {
@@ -113,15 +113,16 @@ namespace ConsoleApplication1
 
     }
 
-    class DateComparer : IComparer
+    class DateComparer : IComparer<Student1>, IComparer<Employee>
     {
-       public int Compare(object x, object y)
+        public int Compare(Student1 x, Student1 y)
         {
-            if(x is Student1 && y is Student1)
-            return DateTime.Compare((x as Student1).BirthDay, (y as Student1).BirthDay);
-            else if (x is Employee && y is Employee)
-                return DateTime.Compare((x as Employee).BirthDay, (y as Employee).BirthDay);
-            throw new NotImplementedException("Только джля класса Student1");
+            return DateTime.Compare(x.BirthDay, y.BirthDay);
+        }
+
+        public int Compare(Employee x, Employee y)
+        {
+            return DateTime.Compare(x.BirthDay, y.BirthDay);
         }
     }
 
@@ -150,7 +151,7 @@ namespace ConsoleApplication1
     }
 
 
-    class Garbage: IDisposable
+    class Garbage : IDisposable
     {
         public void OpenDB()
         {
