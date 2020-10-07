@@ -11,6 +11,7 @@ namespace ConsoleApplication1
     {
         public string Series { get; set; }
         public int Number { get; set; }
+        public string Surname { get; set; }
 
         public override string ToString()
         {
@@ -23,12 +24,13 @@ namespace ConsoleApplication1
     {
         public string Name { get; set; }
         public DateTime BirthDay { get; set; }
+        public string Surname { get; set; }
 
         public StudentCard StudentCard { get; set; }
 
         public override string ToString()
         {
-            return $"Name: {Name}, BirthDay: {BirthDay.ToShortDateString()}, {StudentCard}";
+            return $"Name: {Name}, Surname: {Surname}BirthDay: {BirthDay.ToShortDateString()}, {StudentCard}";
         }
 
         public int CompareTo(object obj)
@@ -50,13 +52,29 @@ namespace ConsoleApplication1
 
 
 
-    class Group : IEnumerable
+    class Group
     {
+        Point2D<int>[] points = new Point2D<int>[]
+        {
+            new Point2D<int>(3,5),
+            new Point2D<int>(4,8),
+            new Point2D<int>(8,9)
+        };
+
+        public IEnumerable GetPoints()
+        {
+            for (int i = 0; i < points.Length; i++)
+            {
+                yield return points[i];
+            }
+        }
+
         Student1[] students =
         {
            new Student1
             {
                 Name = "Tatyana",
+                Surname = "Pushka",
                 BirthDay = new DateTime(1980, 12, 16),
                 StudentCard = new StudentCard
                 {
@@ -67,6 +85,7 @@ namespace ConsoleApplication1
            new Student1
             {
                 Name = "Ivan",
+                Surname = "Richard",
                 BirthDay = new DateTime(1983, 10, 10),
                 StudentCard = new StudentCard
                 {
@@ -77,6 +96,7 @@ namespace ConsoleApplication1
            new Student1
             {
                 Name = "Olga",
+                Surname = "Killer",
                 BirthDay = new DateTime(1983, 12, 20),
                 StudentCard = new StudentCard
                 {
@@ -87,6 +107,7 @@ namespace ConsoleApplication1
            new Student1
             {
                 Name = "Nikolay",
+                Surname = "Nemov",
                 BirthDay = new DateTime(1980, 5, 25),
                 StudentCard = new StudentCard
                 {
@@ -96,9 +117,12 @@ namespace ConsoleApplication1
             },
         };
 
-        public IEnumerator GetEnumerator()
+        public IEnumerator<Student1> GetEnumerator()
         {
-            return students.GetEnumerator();
+            for (int i = 0; i < students.Length; i++)
+            {
+                yield return students[i];
+            }
         }
 
         public void Sort()
@@ -123,6 +147,15 @@ namespace ConsoleApplication1
         public int Compare(Employee x, Employee y)
         {
             return DateTime.Compare(x.BirthDay, y.BirthDay);
+        }
+    }
+
+    class SurnameComparer : IComparer<Student1>
+    {
+        public int Compare(Student1 x, Student1 y)
+        {
+            return x.Surname.CompareTo(y.Surname);
+
         }
     }
 

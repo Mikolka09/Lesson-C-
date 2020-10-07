@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using NS = NS2.NS3;
 using Human1;
 using System.Collections;
+using OperationTimer;
 
 namespace ConsoleApplication1
 {
@@ -52,12 +53,12 @@ namespace ConsoleApplication1
             a = 88;
         }
 
-       static void Print(Hashtable group)
+        static void Print(Hashtable group)
         {
             foreach (Student1 student in group.Keys)
             {
                 Console.Write(student + " Mark: ");
-                foreach (int item in (group[student])as ArrayList)
+                foreach (int item in (group[student]) as ArrayList)
                 {
                     Console.Write(item + " ");
                 }
@@ -74,6 +75,28 @@ namespace ConsoleApplication1
             }
         }
 
+        static T MaxElemArr<T>(T[] arr) where T : IComparable<T>
+        {
+            T max = arr[0];
+            foreach (var item in arr)
+            {
+                if (item.CompareTo(max) > 0)
+                    max = item;
+            }
+            return max;
+        }
+
+        static T SummArr<T>(T[] arr) where T : struct
+        {
+            T sum = (dynamic)0;
+            foreach (var item in arr)
+            {
+
+                sum += (dynamic)item;
+            }
+            return sum;
+        }
+
         static void Main(string[] args)
         {
             //Console.Beep(3000, 3000);
@@ -85,31 +108,110 @@ namespace ConsoleApplication1
             Console.WriteLine("Hello C#");
             Console.Title = "My C#";
 
-            Hashtable group = new Hashtable();
-            group.Add(new Student1
-            {
-                Name = "Olga",
-                BirthDay = new DateTime(1980, 12, 16),
-                StudentCard = new StudentCard
-                {
-                    Series = "AA",
-                    Number = 123456
-                }
-            }, new ArrayList { 6, 8, 10 });
-            group.Add(new Student1
-            {
-                Name = "Ivan",
-                BirthDay = new DateTime(1982, 12, 13),
-                StudentCard = new StudentCard
-                {
-                    Series = "AA",
-                    Number = 723456
-                }
-            }, new ArrayList { 7, 9, 10 });
 
-            AddMark(group,"Ivan", 12);
-            AddMark(group, "Olga", 5);
-            Print(group);
+
+
+
+            //Console.WriteLine(MaxElemArr<int>(new int[] { 1, 5, 10, 5, 6 }));
+            //Console.WriteLine(MaxElemArr<double>(new double[] { 1.2, 5.8, 10.1, 5.3, 6.1 }));
+            //Console.WriteLine(SummArr<int>(new int[] { 1, 5, 10, 5, 6 }));
+
+
+            //Point2D<int> p1 = new Point2D<int>(3, 5);
+            //Console.WriteLine(p1);
+            //Console.WriteLine(p1.GetType());
+
+            //Point2D<double> p2 = new Point2D<double>(4.77, 6.88);
+            //Console.WriteLine(p2);
+            //Console.WriteLine(p2.GetType());
+
+            //InheritClass ic = new InheritClass();
+            //ic.Method2(12);
+
+            //GenClass<int> g = new GenClass<int>();
+            //g.M1(20);
+
+            //A<int>.B a = new A<int>.B();
+            //C<int>.D<string> c = new C<int>.D<string>();
+            //Console.WriteLine(c.GetType());
+
+
+
+            //Dictionary<string, int> dic = new Dictionary<string, int>()
+            //{
+            //    ["www"] = 555,
+            //    ["ggg"] = 999
+            //};
+            //dic.Add("sss", 4);
+            //dic.Add("sas", 14);
+            //dic.Add("ssf", 24);
+            //dic.Add("sbs", 34);
+            //dic["aaa"] = 444;
+
+            ////Console.WriteLine(dic["ooo"]);
+
+            //foreach (var item in dic)
+            //{
+            //    Console.WriteLine($"{item.Key} - {item.Value}");
+            //}
+
+            //const int size = 100000000;
+
+            //using (new OperationTimer.OperationTimer("ArraList"))
+            //{
+            //    ArrayList arr = new ArrayList();
+            //    for (int i = 0; i < size; i++)
+            //    {
+            //        arr.Add(i);
+            //        int x = (int)arr[i];
+            //    }
+            //    arr = null;
+            //}
+
+            //using (new OperationTimer.OperationTimer("List"))
+            //{
+            //    List<int> list = new List<int>();
+            //    for (int i = 0; i < size; i++)
+            //    {
+            //        list.Add(i);
+            //        int x = list[i];
+            //    }
+            //    list = null;
+            //}
+
+
+
+            //List<int> list = new List<int>();
+            //list.Add(5);
+            //Console.WriteLine(list[0]);
+
+
+
+            //Hashtable group = new Hashtable();
+            //group.Add(new Student1
+            //{
+            //    Name = "Olga",
+            //    BirthDay = new DateTime(1980, 12, 16),
+            //    StudentCard = new StudentCard
+            //    {
+            //        Series = "AA",
+            //        Number = 123456
+            //    }
+            //}, new ArrayList { 6, 8, 10 });
+            //group.Add(new Student1
+            //{
+            //    Name = "Ivan",
+            //    BirthDay = new DateTime(1982, 12, 13),
+            //    StudentCard = new StudentCard
+            //    {
+            //        Series = "AA",
+            //        Number = 723456
+            //    }
+            //}, new ArrayList { 7, 9, 10 });
+
+            //AddMark(group,"Ivan", 12);
+            //AddMark(group, "Olga", 5);
+            //Print(group);
 
             //SortedList sl = new SortedList();
             //sl.Add(new Student1
@@ -352,18 +454,18 @@ namespace ConsoleApplication1
             //Console.WriteLine(st1);
             //Console.WriteLine(st2);
 
-            //Group group = new Group();
+            Group group = new Group();
 
             //foreach (Student1 item in group)
             //{
             //    Console.WriteLine(item);
             //}
-            //Console.WriteLine();
-            //group.Sort(new StudentCardComparer());
-            //foreach (Student1 item in group)
-            //{
-            //    Console.WriteLine(item);
-            //}
+            Console.WriteLine();
+           // group.Sort(new SurnameComparer());
+            foreach (var item in group.GetPoints())
+            {
+                Console.WriteLine(item);
+            }
 
 
 
