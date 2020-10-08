@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace ConsoleApplication1
 {
+
+    public delegate void ExamDelegate(string st);
+
     class StudentCard
     {
         public string Series { get; set; }
@@ -48,9 +51,24 @@ namespace ConsoleApplication1
             };
             return temp;
         }
+
+        public void Exam(string date)
+        {
+            Console.WriteLine($"Студенту {Surname} {Name} назначен экзамен на {date}");
+        }
+
     }
 
-
+    class Teacher
+    {
+        public event ExamDelegate examEvent;
+        public void SetExam(string date)
+        {
+            examEvent?.Invoke(date);
+            //if (examEvent != null)
+            //    examEvent(date);
+        }
+    }
 
     class Group
     {

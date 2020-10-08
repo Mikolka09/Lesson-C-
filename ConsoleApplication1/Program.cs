@@ -44,8 +44,34 @@ namespace ConsoleApplication1
     //    }
     //}
 
+    //public delegate int IntDelegate(int a, int b);
+    //public delegate double DoubleDelegate(double a, double b);
+    public delegate T MyDelegate<T>(T a, T b);
+
+
     class Program
     {
+
+        static int Sum(int a, int b)
+        {
+            return a + b;
+        }
+
+        static int Sub(int a, int b)
+        {
+            return a - b;
+        }
+
+        static double Sub(double a, double b)
+        {
+            return a - b;
+        }
+
+        static void M()
+        {
+            Console.WriteLine("Delegate");
+        }
+
         static void Func1(ref int[] arr, out int a)
         {
             arr = new int[] { 4, 5, 6 };
@@ -97,6 +123,32 @@ namespace ConsoleApplication1
             return sum;
         }
 
+
+        static void GetFullName(Student1 s)
+        {
+            Console.WriteLine($"{s.Name} {s.Surname}");
+        }
+
+        static string FullName(Student1 s)
+        {
+            return s.Surname + " " + s.Name;
+        }
+
+        static bool St80(Student1 st)
+        {
+            return st.BirthDay.Year > 1980;
+        }
+
+        static bool StSpring(Student1 st)
+        {
+            return st.BirthDay.Month > 2 && st.BirthDay.Month < 6;
+        }
+
+        static int SortByDate(Student1 a, Student1 b)
+        {
+            return DateTime.Compare(a.BirthDay, b.BirthDay);
+        }
+
         static void Main(string[] args)
         {
             //Console.Beep(3000, 3000);
@@ -109,8 +161,123 @@ namespace ConsoleApplication1
             Console.Title = "My C#";
 
 
+            List<Student1> students = new List<Student1>
+            {
+            new Student1
+            {
+                Name = "Tatyana",
+                Surname = "Ivanova",
+                BirthDay = new DateTime(1980, 12, 16),
+                StudentCard = new StudentCard
+                {
+                    Series = "AA",
+                    Number = 123456
+                }
+            },
+            new Student1
+            {
+                Name = "Ivan",
+                Surname = "Smirnoff",
+                BirthDay = new DateTime(1983, 3, 11),
+                StudentCard = new StudentCard
+                {
+                    Series = "AB",
+                    Number = 651234
+                }
+            },
+            new Student1
+            {
+                Name = "Olga",
+                Surname = "Freymut",
+                BirthDay = new DateTime(1985, 4, 20),
+                StudentCard = new StudentCard
+                {
+                    Series = "AA",
+                    Number = 651234
+                }
+            },
+            new Student1
+            {
+                Name = "Nikolay",
+                 Surname = "Drozdov",
+                BirthDay = new DateTime(1980, 5, 25),
+                StudentCard = new StudentCard
+                {
+                    Series = "CA",
+                    Number = 123456
+                }
+            }
+        };
 
 
+            Teacher teacher = new Teacher();
+            foreach (var item in students)
+            {
+                teacher.examEvent += item.Exam;
+            }
+
+            teacher.examEvent += Teacher_examEvent;
+
+            teacher.examEvent -= students[3].Exam;
+
+            teacher.SetExam("10.10.2020");
+
+
+
+            //List<Student1> st80 = students.FindAll(st=>st.BirthDay.Year > 1980);
+
+            //List<Student1> stSpring = students.FindAll(StSpring);
+
+            //students.Sort((a, b) => DateTime.Compare(a.BirthDay, b.BirthDay));
+
+            //foreach (var item in students)
+            //{
+            //    Console.WriteLine(item);
+            //}
+
+            // students.ForEach(GetFullName);
+            //string[] stName = students.Select(FullName).ToArray();
+            //foreach (var item in stName)
+            //{
+            //    Console.WriteLine(item);
+            //}
+
+            //Calc calc = new Calc();
+            //string exspression = Console.ReadLine();
+            //char oper = exspression[exspression.IndexOfAny("+-*/".ToCharArray())];
+            //string[] numbers = exspression.Split(oper);
+            //CalcDelegate calcDel = null;
+            //switch (oper)
+            //{
+            //    case '+':
+            //        calcDel = new CalcDelegate(calc.Sum);
+            //        break;
+            //    case '-':
+            //        calcDel = calc.Sub;
+            //        break;
+            //    case '*':
+            //        calcDel = calc.Mult;
+            //        break;
+            //    case '/':
+            //        calcDel = calc.Div;
+            //        break;
+            //    default:
+            //        throw new NotImplementedException();
+            //}
+
+            //Console.WriteLine(calcDel(double.Parse(numbers[0]), double.Parse(numbers[1])));
+
+
+            //MyDelegate<int> intDelegate = null;
+            //intDelegate += Sum;
+            //Console.WriteLine(intDelegate(4, 7));
+            //MyDelegate<double> dDelegate = null;
+            //dDelegate += Sub;
+            //Console.WriteLine(intDelegate(4, 7));
+            //foreach (MyDelegate<int> item in intDelegate.GetInvocationList())
+            //{
+            //    Console.WriteLine(item(4, 7));
+            //}
 
             //Console.WriteLine(MaxElemArr<int>(new int[] { 1, 5, 10, 5, 6 }));
             //Console.WriteLine(MaxElemArr<double>(new double[] { 1.2, 5.8, 10.1, 5.3, 6.1 }));
@@ -454,18 +621,18 @@ namespace ConsoleApplication1
             //Console.WriteLine(st1);
             //Console.WriteLine(st2);
 
-            Group group = new Group();
+            //Group group = new Group();
 
             //foreach (Student1 item in group)
             //{
             //    Console.WriteLine(item);
             //}
-            Console.WriteLine();
-           // group.Sort(new SurnameComparer());
-            foreach (var item in group.GetPoints())
-            {
-                Console.WriteLine(item);
-            }
+            //Console.WriteLine();
+            // group.Sort(new SurnameComparer());
+            //foreach (var item in group.GetPoints())
+            //{
+            //    Console.WriteLine(item);
+            //}
 
 
 
@@ -854,6 +1021,11 @@ namespace ConsoleApplication1
 
 
             Console.Read();
+        }
+
+        private static void Teacher_examEvent(string st)
+        {
+            Console.WriteLine("Кто-то левый подписался на событие");
         }
 
         static int Div(int a, int b)
