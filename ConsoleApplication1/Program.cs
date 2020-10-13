@@ -46,7 +46,10 @@ namespace ConsoleApplication1
 
     //public delegate int IntDelegate(int a, int b);
     //public delegate double DoubleDelegate(double a, double b);
-    public delegate T MyDelegate<T>(T a, T b);
+    public delegate int MyDelegate(int a, int b);
+    public delegate void VoidDelegate();
+    public delegate void StudentDelegate(string t);
+
 
 
     class Program
@@ -161,67 +164,168 @@ namespace ConsoleApplication1
             Console.Title = "My C#";
 
 
+            //string st = "afgafg rwtjhrw rtjhwwh qetqwertgq";
+            //Console.WriteLine(st.DeleteSpace());
+            //ExtentionString.DeleteSpace(st);
+
+            //int[] arr = { 34, 64, 55, 67, 78, 47, 2, 7 };
+
+            //IEnumerable<IGrouping<int, int>> res =
+            //    from i
+            //    in arr
+            //        //where i % 2 == 0
+            //        //orderby i
+            //        //select i;
+            //    group i by i % 10 into res1
+            //    where res1.Count() > 1
+            //    select res1;
+
+            //foreach (IGrouping < int, int> item in res)
+            //{
+            //    Console.WriteLine($"Key {item.Key}");
+            //    Console.Write("Value  ");
+            //    foreach (int val in item)
+            //    {
+            //        Console.Write(val+ " ");
+            //    }
+            //    Console.WriteLine();
+            //}
+
+            //foreach (var item in res)
+            //{
+            //    Console.Write(item + " ");
+            //}
+            //Console.WriteLine();
+
+            //arr = arr.Mult(3);
+            //arr.Print();
+
+
+
+            //MyDelegate intDelegate = null;
+            //intDelegate += Sum;
+            //intDelegate += Sum;
+            ////Console.WriteLine(intDelegate(4,7));
+            //intDelegate += delegate (int a, int b) { return a + b; };
+            //intDelegate += (a, b) => { return a + b; };
+            //Console.WriteLine(intDelegate(4, 7));
+
+            //int num = 5;
+
+
+            //VoidDelegate vd = null;
+            //vd += delegate () { Console.WriteLine($"VD {num}"); };
+            //vd();
+
+            //(param) => { reliz metod}
+
+            List<GroupSt> gr = new List<GroupSt>
+            {
+                new GroupSt {ID = 1, Name = "PV-911" },
+                new GroupSt {ID = 2, Name = "PU-912" },
+                new GroupSt {ID = 3, Name = "DV-913" }
+            };
+
             List<Student1> students = new List<Student1>
-            {
-            new Student1
-            {
-                Name = "Tatyana",
-                Surname = "Ivanova",
-                BirthDay = new DateTime(1980, 12, 16),
-                StudentCard = new StudentCard
                 {
-                    Series = "AA",
-                    Number = 123456
-                }
-            },
-            new Student1
-            {
-                Name = "Ivan",
-                Surname = "Smirnoff",
-                BirthDay = new DateTime(1983, 3, 11),
-                StudentCard = new StudentCard
+                new Student1
                 {
-                    Series = "AB",
-                    Number = 651234
-                }
-            },
-            new Student1
-            {
-                Name = "Olga",
-                Surname = "Freymut",
-                BirthDay = new DateTime(1985, 4, 20),
-                StudentCard = new StudentCard
+                    Name = "Tatyana",
+                    Surname = "Ivanova",
+                    BirthDay = new DateTime(1980, 12, 16),
+                    StudentCard = new StudentCard
+                    {
+                        Series = "AA",
+                        Number = 123456
+                    },
+                    IDGroup = 1
+                },
+                new Student1
                 {
-                    Series = "AA",
-                    Number = 651234
-                }
-            },
-            new Student1
-            {
-                Name = "Nikolay",
-                 Surname = "Drozdov",
-                BirthDay = new DateTime(1980, 5, 25),
-                StudentCard = new StudentCard
+                    Name = "Ivan",
+                    Surname = "Smirnoff",
+                    BirthDay = new DateTime(1983, 3, 11),
+                    StudentCard = new StudentCard
+                    {
+                        Series = "AB",
+                        Number = 651234
+                    },
+                     IDGroup = 2
+                },
+                new Student1
                 {
-                    Series = "CA",
-                    Number = 123456
+                    Name = "Olga",
+                    Surname = "Freymut",
+                    BirthDay = new DateTime(1985, 4, 20),
+                    StudentCard = new StudentCard
+                    {
+                        Series = "AA",
+                        Number = 651234
+                    },
+                     IDGroup = 1
+                },
+                new Student1
+                {
+                    Name = "Nikolay",
+                     Surname = "Drozdov",
+                    BirthDay = new DateTime(1980, 5, 25),
+                    StudentCard = new StudentCard
+                    {
+                        Series = "CA",
+                        Number = 123456
+                    },
+                     IDGroup = 3
                 }
+            };
+
+            IEnumerable<Student1> res =
+                from g
+                in gr
+                join st in students on g.ID equals st.IDGroup into res1
+                from r in res1
+                select r;
+
+            foreach (var item in res)
+            {
+                Console.WriteLine($" Group  {gr.First(g=>g.ID == item.IDGroup).Name} " + item);
             }
-        };
+
+            //Student1[] res =
+            //    (from i
+            //  in students
+            //    where i.BirthDay.Year == 1980
+            //    select i).ToArray();
+
+            //for (int i = 0; i < res.Count(); i++)
+            //{
+            //    res[i].BirthDay = new DateTime(2020, res[i].BirthDay.Month, res[i].BirthDay.Day);
+            //}
+
+            //foreach (var item in res)
+            //{
+            //    Console.WriteLine(item);
+            //}
 
 
-            Teacher teacher = new Teacher();
-            foreach (var item in students)
-            {
-                teacher.examEvent += item.Exam;
-            }
 
-            teacher.examEvent += Teacher_examEvent;
 
-            teacher.examEvent -= students[3].Exam;
+            //Teacher teacher = new Teacher();
+            //foreach (var item in students)
+            //{
+            //    teacher.examEvent += item.Exam;
+            //}
 
-            teacher.SetExam("10.10.2020");
+            //teacher.examEvent += Teacher_examEvent;
 
+            //teacher.examEvent -= students[3].Exam;
+
+            //teacher.SetExam("10.10.2020");
+
+            //StudentDelegate st = null;
+            //st += students[0].Exam;
+            //st += students[0].Exam;
+            //st += students[0].Exam;
+            //st("13.10.2020");
 
 
             //List<Student1> st80 = students.FindAll(st=>st.BirthDay.Year > 1980);

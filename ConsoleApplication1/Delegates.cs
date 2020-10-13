@@ -32,4 +32,34 @@ namespace ConsoleApplication1
             throw new DivideByZeroException();
         }
     }
+
+    static class Extention
+    {
+        public static string DeleteSpace(this string st)
+        {
+            return st.Replace(" ", "");
+        }
+
+        public static int[] Mult(this int[]arr, int n)
+        {
+            for (int i = 0; i < arr.Length; i++)
+            {
+                arr[i] *= n;
+            }
+            return arr;
+        }
+
+        public static void Print(this int[] arr)
+        {
+            foreach (var item in arr)
+            {
+                Console.Write(item + " ");
+            }
+            Console.WriteLine();
+        }
+    }
+
+   
+
+
 }

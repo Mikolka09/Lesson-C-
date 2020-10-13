@@ -41,6 +41,8 @@ namespace ConsoleApplication1
             return Name.CompareTo((obj as Student1).Name);
         }
 
+        public int IDGroup { get; set; }
+
         public object Clone()
         {
             Student1 temp = (Student1)this.MemberwiseClone();
@@ -61,13 +63,31 @@ namespace ConsoleApplication1
 
     class Teacher
     {
-        public event ExamDelegate examEvent;
+        SortedList<string, ExamDelegate> list = new SortedList<string, ExamDelegate>();
+
+        public event ExamDelegate examEvent
+        {
+            add { list.Add((value.Target as Student1).Name, value); }
+            remove { list.Remove((value.Target as Student1).Name); }
+        }
+
         public void SetExam(string date)
         {
-            examEvent?.Invoke(date);
+            foreach (var item in list.Values)
+            {
+                item(date);
+            }
+            //examEvent?.Invoke(date);
             //if (examEvent != null)
             //    examEvent(date);
         }
+    }
+
+    class GroupSt
+    {
+        public  int ID { get; set; }
+        public string Name { get; set; }
+
     }
 
     class Group
