@@ -258,7 +258,7 @@ namespace ConsoleApplication1
             }
 
             if (Directory.Exists(dir.FullName + @"\Test"))
-                Directory.CreateDirectory(dir.FullName + @"\Test");
+                Directory.CreateDirectory(dir.FullName + @"\Test");  
 
 
             using (StreamWriter sw = File.CreateText("text55.txt"))
