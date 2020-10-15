@@ -4,13 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace ConsoleApplication1
 {
 
     public delegate void ExamDelegate(string st);
 
-    class StudentCard
+    [Serializable]
+   public class StudentCard
     {
         public string Series { get; set; }
         public int Number { get; set; }
@@ -22,10 +24,14 @@ namespace ConsoleApplication1
         }
     }
 
-
-    class Student1 : IComparable, ICloneable
+    [Serializable]
+    public class Student1 : IComparable, ICloneable
     {
+       //[NonSerialized]
+        int ID = 12454;
+
         public string Name { get; set; }
+
         public DateTime BirthDay { get; set; }
         public string Surname { get; set; }
 
@@ -42,6 +48,20 @@ namespace ConsoleApplication1
         }
 
         public int IDGroup { get; set; }
+
+        [OnSerializing]
+        void OnSerializing(StreamingContext context)
+        {
+            Name = Name.ToUpper();
+            Surname = Surname.ToUpper();
+        }
+
+        [OnDeserialized]
+        void OnDeserialized(StreamingContext context)
+        {
+            Name = Name.ToLower();
+            Surname = Surname.ToLower();
+        }
 
         public object Clone()
         {

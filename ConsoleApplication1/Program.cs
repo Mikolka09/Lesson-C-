@@ -8,6 +8,9 @@ using Human1;
 using System.Collections;
 using OperationTimer;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization.Formatters.Soap;
+using System.Xml.Serialization;
 
 namespace ConsoleApplication1
 {
@@ -165,6 +168,32 @@ namespace ConsoleApplication1
             Console.WriteLine("Hello C#");
             Console.Title = "My C#";
 
+            Payment.SerializationAll = true;
+            Payment pay = new Payment ( 2, 5, 3, 2 );
+            Console.WriteLine(pay);
+            //SoapFormatter soap = new SoapFormatter();
+            //using (Stream fs = File.Create("pay.soap"))
+            //{
+            //    soap.Serialize(fs, pay);
+            //}
+
+            XmlSerializer xml = new XmlSerializer(typeof(Payment));
+            ////SoapFormatter soap = new SoapFormatter();
+
+            using (Stream fs = File.Create("pay.xml"))
+            {
+                xml.Serialize(fs, pay);
+            }
+
+
+
+            //Payment pay2 = null;
+            //using (Stream fs = File.OpenRead("pay.soap"))
+            //{
+            //    pay2 = soap.Deserialize(fs) as Payment;
+            //}
+            //Console.WriteLine(pay2);
+
             /////////////FILES/////////////////////////////
 
             //using (FileStream fs = new FileStream("test1.bin", FileMode.Create, FileAccess.Write, FileShare.None))
@@ -234,37 +263,91 @@ namespace ConsoleApplication1
             //    }
             //}
 
-            DirectoryInfo dir = new DirectoryInfo(".");
-            Console.WriteLine(dir.FullName);
-            Console.WriteLine(dir.LastWriteTime);
-            Console.WriteLine(dir.Name);
-            Console.WriteLine(dir.Parent);
-            Console.WriteLine(dir.Root);
-            Console.WriteLine(dir.CreationTime);
-            Console.WriteLine(dir.Attributes);
-
-            DirectoryInfo[] dirs =  dir.GetDirectories();
-            FileInfo[] files = dir.GetFiles();
-
-            string[] str = new string[files.Length];
-            int i = 0;
-            foreach (var item in dirs)
-            {
-                str[i++] = $"{item.Name.PadRight(25)} {"Dir".PadLeft(10)} {item.CreationTime.ToString().PadLeft(25)} {item.Attributes}";
-            }
-            foreach (var item in files)
-            {
-                str[i++] = $"{item.Name.PadRight(40)} {item.Length.ToString().PadLeft(10)} {item.CreationTime.ToString().PadLeft(25)} {item.Attributes}";
-            }
-
-            if (Directory.Exists(dir.FullName + @"\Test"))
-                Directory.CreateDirectory(dir.FullName + @"\Test");  
+            //DirectoryInfo dir = new DirectoryInfo(".");
+            //Console.WriteLine(dir.FullName);
+            //Console.WriteLine(dir.LastWriteTime);
+            //Console.WriteLine(dir.Name);
+            //Console.WriteLine(dir.Parent);
+            //Console.WriteLine(dir.Root);
+            //Console.WriteLine(dir.CreationTime);
+            //Console.WriteLine(dir.Attributes);
 
 
-            using (StreamWriter sw = File.CreateText("text55.txt"))
-            {
-                sw.Write("sndnsl lkvaslslkv scs");
-            }
+            //Student1 stud = new Student1
+            //{
+            //    Name = "Ivan",
+            //    Surname = "Smirnoff ",
+            //    BirthDay = new DateTime(1983, 3, 11),
+            //    StudentCard = new StudentCard
+            //    {
+            //        Series = "AB",
+            //        Number = 651234
+            //    },
+            //    IDGroup = 2
+            //};
+
+            //BinaryFormatter bf = new BinaryFormatter();
+            //using (Stream fs = File.Create("student.bin"))
+            //{
+            //    bf.Serialize(fs, stud);
+            //}
+
+
+            //XmlSerializer xml = new XmlSerializer(typeof(Student1));
+            ////SoapFormatter soap = new SoapFormatter();
+
+            //using (Stream fs = File.Create("student.xml"))
+            //{
+            //    xml.Serialize(fs, stud);
+            //}
+
+            //using (Stream fs = File.Create("student.soap"))
+            //{
+            //    soap.Serialize(fs, stud);
+            //}
+
+            //Student1 st = null;
+
+            //using (Stream fs = File.OpenRead("student.xml"))
+            //{
+            //    st = xml.Deserialize(fs) as Student1;
+            //}
+            //Console.WriteLine(st);
+
+            //using (Stream fs = File.OpenRead("student.soap"))
+            //{
+            //st = soap.Deserialize(fs) as Student1;
+            //}
+            // Console.WriteLine(st);
+
+            //using (Stream str = File.OpenRead("student.bin"))
+            //{
+            //    st = bf.Deserialize(str) as Student1;
+            //}
+            //Console.WriteLine(st);
+
+            //DirectoryInfo[] dirs =  dir.GetDirectories();
+            //FileInfo[] files = dir.GetFiles();
+
+            //string[] str = new string[files.Length];
+            //int i = 0;
+            //foreach (var item in dirs)
+            //{
+            //    str[i++] = $"{item.Name.PadRight(25)} {"Dir".PadLeft(10)} {item.CreationTime.ToString().PadLeft(25)} {item.Attributes}";
+            //}
+            //foreach (var item in files)
+            //{
+            //    str[i++] = $"{item.Name.PadRight(40)} {item.Length.ToString().PadLeft(10)} {item.CreationTime.ToString().PadLeft(25)} {item.Attributes}";
+            //}
+
+            //if (Directory.Exists(dir.FullName + @"\Test"))
+            //    Directory.CreateDirectory(dir.FullName + @"\Test");  
+
+
+            //using (StreamWriter sw = File.CreateText("text55.txt"))
+            //{
+            //    sw.Write("sndnsl lkvaslslkv scs");
+            //}
 
 
 
@@ -382,6 +465,24 @@ namespace ConsoleApplication1
             //         IDGroup = 3
             //    }
             //};
+
+
+            //XmlSerializer xml1 = new XmlSerializer(typeof(List<Student1>));
+            //SoapFormatter soap = new SoapFormatter();
+
+            //using (Stream fs = File.Create("students.xml"))
+            //{
+            //    xml1.Serialize(fs, students);
+            //}
+
+            //XmlSerializer xml1 = new XmlSerializer(typeof(List<Student1>));
+            ////SoapFormatter soap = new SoapFormatter();
+
+            //using (Stream fs = File.Create("students.xml"))
+            //{
+            //    xml1.Serialize(fs, students);
+            //}
+
 
             //IEnumerable<Student1> res =
             //    from g
