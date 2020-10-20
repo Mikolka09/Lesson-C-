@@ -11,6 +11,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization.Formatters.Soap;
 using System.Xml.Serialization;
+using System.Xml;
 
 namespace ConsoleApplication1
 {
@@ -156,6 +157,28 @@ namespace ConsoleApplication1
             return DateTime.Compare(a.BirthDay, b.BirthDay);
         }
 
+        static void ReadNode(XmlNode node)
+        {
+            Console.WriteLine($"Type = {node.NodeType}   Name = {node.Name}  Value = {node.Value}");
+
+            if(node.Attributes != null)
+            {
+                foreach (XmlAttribute item in node.Attributes)
+                {
+                    Console.WriteLine($"Type = {item.NodeType}   Name = {item.Name}   Value = {item.Value}");
+                }
+            }
+
+            if(node.HasChildNodes)
+            {
+                foreach (XmlNode item in node.ChildNodes)
+                {
+                    ReadNode(item);
+                }
+            }
+        }
+
+
         static void Main(string[] args)
         {
             //Console.Beep(3000, 3000);
@@ -168,22 +191,177 @@ namespace ConsoleApplication1
             Console.WriteLine("Hello C#");
             Console.Title = "My C#";
 
-            Payment.SerializationAll = true;
-            Payment pay = new Payment ( 2, 5, 3, 2 );
-            Console.WriteLine(pay);
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load("https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange");
+           
+            XmlNodeList list1 = doc.GetElementsByTagName("r030");
+            XmlNodeList list2 = doc.GetElementsByTagName("txt");
+            XmlNodeList list3 = doc.GetElementsByTagName("rate");
+            XmlNodeList list4 = doc.GetElementsByTagName("cc");
+            
+            List<Currency> val = new List<Currency>();
+            for (int i = 0; i < list1.Count; i++)
+            {
+                val.Add(new Currency
+                {
+                    r030 = int.Parse(list1[i].InnerText),
+                    txt = list2[i].InnerText,
+                    rate = float.Parse(list3[i].InnerText.Replace('.', ',')),
+                    cc = list4[i].InnerText
+                });
+             }
+
+            List<Currency> res = val.FindAll(c => c.rate > 10);
+
+            IEnumerable<Currency> result =
+                from i
+                in val
+                where i.rate < 10
+                select i;
+
+            foreach (var item in result)
+            {
+                Console.WriteLine(item);
+            }
+                  
+
+            //XmlTextReader reader = new XmlTextReader("Computers.xml");
+            //reader.WhitespaceHandling = WhitespaceHandling.None;
+
+            //while (reader.Read())
+            //{
+            //    //Console.WriteLine($"Type = {reader.NodeType}   Name = {reader.Name}   Value = {reader.Value}");
+
+            //    if(reader.NodeType == XmlNodeType.Element && reader.Name == "Computer" && reader.AttributeCount>0)
+            //    {
+            //        while (reader.MoveToNextAttribute())
+            //        {
+            //            if(reader.Name == "Type")
+            //            //Console.WriteLine($"Type = {reader.NodeType}   Name = {reader.Name}   Value = {reader.Value}");
+            //            Console.WriteLine($"Value = {reader.Value}");
+            //        }
+            //    }
+            //}
+
+            //reader.Close();
+
+
+            //XmlDocument doc = new XmlDocument();
+            //doc.Load("Computers.xml");
+            //XmlNode root = doc.DocumentElement;
+            //root.RemoveChild(root.LastChild);
+
+            //XmlNode ps5 = doc.CreateElement("PlayStation5");
+            //XmlNode elem1 = doc.CreateElement("HDD");
+            //XmlNode elem2 = doc.CreateElement("RAM");
+            //XmlNode elem3 = doc.CreateElement("Video");
+            //XmlNode elem4 = doc.CreateElement("BRDrive");
+
+            //XmlNode text1 = doc.CreateTextNode("2000Gb");
+            //XmlNode text2 = doc.CreateTextNode("16Gb");
+            //XmlNode text3 = doc.CreateTextNode("1000Gb");
+            //XmlNode text4 = doc.CreateTextNode("SonyBD-500A");
+
+            //elem1.AppendChild(text1);
+            //elem2.AppendChild(text2);
+            //elem3.AppendChild(text3);
+            //elem4.AppendChild(text4);
+
+            //ps5.AppendChild(elem1);
+            //ps5.AppendChild(elem2);
+            //ps5.AppendChild(elem3);
+            //ps5.AppendChild(elem4);
+
+            //root.AppendChild(ps5);
+
+            //doc.Save("Computers1.xml");
+
+
+            //XmlDocument doc = new XmlDocument();
+            //doc.AppendChild(doc.CreateXmlDeclaration("1.0", "utf-16", "yes"));
+            // doc.Load("Computers.xml");
+            // XmlNode root = doc.CreateElement("root");
+            //root.RemoveChild(root.LastChild);
+
+
+            //XmlNode ps5 = doc.CreateElement("PlayStation5");
+
+            //XmlNode elem1 = doc.CreateElement("HDD");
+            //XmlNode elem2 = doc.CreateElement("RAM");
+            //XmlNode elem3 = doc.CreateElement("Video");
+            //XmlNode elem4 = doc.CreateElement("BRDrive");
+
+            //XmlNode text1 = doc.CreateTextNode("2000Gb");
+            //XmlNode text2 = doc.CreateTextNode("16Gb");
+            //XmlNode text3 = doc.CreateTextNode("1000Gb");
+            //XmlNode text4 = doc.CreateTextNode("Sony BD-500A");
+
+            //elem1.AppendChild(text1);
+            //elem2.AppendChild(text2);
+            //elem3.AppendChild(text3);
+            //elem4.AppendChild(text4);
+
+            //ps5.AppendChild(elem1);
+            //ps5.AppendChild(elem2);
+            //ps5.AppendChild(elem3);
+            //ps5.AppendChild(elem4);
+
+            ////root.AppendChild(ps5);
+            //doc.AppendChild(ps5);
+
+            //doc.Save("Computers2.xml");
+
+            //XmlDocument doc = new XmlDocument();
+            //doc.Load("Computers.xml");
+            //ReadNode(doc.DocumentElement);
+
+
+            //XmlTextWriter writer = new XmlTextWriter("Computers.xml", Encoding.Unicode);
+            //writer.Formatting = Formatting.Indented;
+            //writer.WriteStartDocument();
+            //writer.WriteStartElement("Computers");
+            //writer.WriteStartElement("Computer");
+            //writer.WriteAttributeString("Type", "Home");
+            //writer.WriteElementString("Processor", "Intel");
+            //writer.WriteStartElement("HD");
+            //writer.WriteElementString("HDD", "500Gb");
+            //writer.WriteElementString("SSD", "240Gb");
+            //writer.WriteEndElement();
+            //writer.WriteElementString("RAM", "4Gb");
+            //writer.WriteEndElement();
+
+            //writer.WriteStartElement("Computer");
+            //writer.WriteAttributeString("Type", "Game");
+            //writer.WriteElementString("Processor", "Intel Core I9");
+            //writer.WriteStartElement("HDD");
+            //writer.WriteElementString("HDD", "1000Gb");
+            //writer.WriteElementString("SSD", "1000Gb");
+            //writer.WriteEndElement();
+            //writer.WriteElementString("RAM", "32Gb");
+            //writer.WriteEndElement();
+
+            //writer.WriteEndElement();
+
+            //writer.Close();
+
+
+            //Payment.SerializationAll = true;
+            //Payment pay = new Payment(2, 5, 3, 2);
+            //Console.WriteLine(pay);
             //SoapFormatter soap = new SoapFormatter();
             //using (Stream fs = File.Create("pay.soap"))
             //{
             //    soap.Serialize(fs, pay);
             //}
 
-            XmlSerializer xml = new XmlSerializer(typeof(Payment));
-            ////SoapFormatter soap = new SoapFormatter();
+            //XmlSerializer xml = new XmlSerializer(typeof(Payment));
+            //////SoapFormatter soap = new SoapFormatter();
 
-            using (Stream fs = File.Create("pay.xml"))
-            {
-                xml.Serialize(fs, pay);
-            }
+            //using (Stream fs = File.Create("pay.xml"))
+            //{
+            //    xml.Serialize(fs, pay);
+            //}
 
 
 

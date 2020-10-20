@@ -52,6 +52,7 @@
     <Compile Include="Class2.cs" />
     <Compile Include="Class3.cs" />
     <Compile Include="Class4.cs" />
+    <Compile Include="Currency.cs" />
     <Compile Include="Delegates.cs" />
     <Compile Include="Generic.cs" />
     <Compile Include="Interface1.cs" />

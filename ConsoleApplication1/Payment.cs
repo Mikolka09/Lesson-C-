@@ -15,7 +15,19 @@ namespace ConsoleApplication1
         public int CountDay { get; set; }
         public int PenaltyOnDay { get; set; }
         public int NumberDaysOverdue { get; set; }
-        public int Penalty { get; }
+        public int Penalty
+        {
+            get
+            {
+                if (SerializationAll)
+                    return Penalty;
+                else
+                    return 0;
+            }
+            set { }
+        }
+
+        //public int Penalty { get; }
         public int SummNoPenalty { get;  }
         public int SumTotal { get;  }
 
