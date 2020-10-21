@@ -1,11 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ConsoleApplication1
 {
+    [AttributeUsage(AttributeTargets.Property)]
+    class ValueFromFile : Attribute
+    {
+        string fname;
+
+        public ValueFromFile(string fn)
+        {
+            fname = fn;
+        }
+
+        public override string ToString()
+        {
+            return fname;
+        }
+    }
+
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method | AttributeTargets.Property)]
+    class AutorAttribute : Attribute
+    {
+        string name = "Mykola";
+        DateTime date = DateTime.Now;
+
+        public AutorAttribute()
+        {
+
+        }
+
+        public AutorAttribute(string n, string d)
+        {
+            name = n;
+            date = Convert.ToDateTime(d);
+        }
+
+        public override string ToString()
+        {
+            return $"Autor {name}, Date {date}";
+        }
+    }
+
     class Point
     {
         public int X { get; set; }
@@ -19,10 +59,35 @@ namespace ConsoleApplication1
     }
 
 
-
+    [Autor]
     class Vector
     {
-        public int X { get; set; }
+
+        int x;
+
+        [Autor("Data", "2020-10-25")]
+        [ValueFromFile("file.txt")]
+        public int X
+        {
+            get
+            {
+                var attr = typeof(Vector).GetProperty("X").GetCustomAttributes(true);
+
+                if (attr.Length>0)
+                {
+                    StreamReader fs = File.OpenText(attr[0].ToString());
+                    int val = int.Parse(fs.ReadLine());
+                    fs.Close();
+                    return val;
+                }
+                else
+                    return x;
+            }
+            set
+            {
+                x = value;
+            }
+        }
         public int Y { get; set; }
 
         public Vector(Point a, Point b)
@@ -30,6 +95,7 @@ namespace ConsoleApplication1
             X = Math.Abs(a.X - b.X);
             Y = Math.Abs(a.Y - b.Y);
         }
+
 
         public Vector(int x, int y)
         {
@@ -102,6 +168,12 @@ namespace ConsoleApplication1
         public static implicit operator Vector(int a)
         {
             return new Vector(a, a);
+        }
+
+        [Autor("Ivan", "2020-05-20")]
+        public double Length()
+        {
+            return Math.Sqrt(X * X + Y * Y);
         }
     }
 

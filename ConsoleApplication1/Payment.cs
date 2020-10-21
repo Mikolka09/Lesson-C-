@@ -10,26 +10,25 @@ namespace ConsoleApplication1
     [Serializable]
     public class Payment : ISerializable
     {
-        public static bool SerializationAll { get; set; } = true;
+        private static bool SerializationAll { get; set; } = false;
         public int PayOnDay { get; set; }
         public int CountDay { get; set; }
         public int PenaltyOnDay { get; set; }
         public int NumberDaysOverdue { get; set; }
+        private int penalty;
+
         public int Penalty
         {
-            get
-            {
-                if (SerializationAll)
-                    return Penalty;
-                else
-                    return 0;
-            }
-            set { }
+            get {
+                penalty = PayOnDay * CountDay;
+                return penalty; }
+            //set { }
+           
         }
 
-        //public int Penalty { get; }
-        public int SummNoPenalty { get;  }
-        public int SumTotal { get;  }
+        //public int Penalty;
+        public int SummNoPenalty { get; }
+        public int SumTotal { get; }
 
         public Payment()
         {
@@ -41,7 +40,8 @@ namespace ConsoleApplication1
             this.PayOnDay = PayOnDay;
             this.CountDay = CountDay;
             this.NumberDaysOverdue = NumberDaysOverdue;
-            Penalty = PayOnDay * CountDay;
+            this.PenaltyOnDay = PenaltyOnDay;
+            penalty = PayOnDay * CountDay;
             SummNoPenalty = PenaltyOnDay * NumberDaysOverdue;
             SumTotal = Penalty + SummNoPenalty;
         }
@@ -54,7 +54,7 @@ namespace ConsoleApplication1
             PenaltyOnDay = info.GetInt32("PenaltyOnDay");
             if (SerializationAll)
             {
-                Penalty = info.GetInt32("Penalty");
+                penalty = info.GetInt32("Penalty");
                 SummNoPenalty = info.GetInt32("SumNoPenalty");
                 SumTotal = info.GetInt32("SumTotal");
             }
@@ -87,4 +87,9 @@ namespace ConsoleApplication1
         }
     }
 }
+
+
+
+
+
 

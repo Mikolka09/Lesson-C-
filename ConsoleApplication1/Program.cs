@@ -12,6 +12,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization.Formatters.Soap;
 using System.Xml.Serialization;
 using System.Xml;
+using System.Text.RegularExpressions;
 
 namespace ConsoleApplication1
 {
@@ -161,7 +162,7 @@ namespace ConsoleApplication1
         {
             Console.WriteLine($"Type = {node.NodeType}   Name = {node.Name}  Value = {node.Value}");
 
-            if(node.Attributes != null)
+            if (node.Attributes != null)
             {
                 foreach (XmlAttribute item in node.Attributes)
                 {
@@ -169,7 +170,7 @@ namespace ConsoleApplication1
                 }
             }
 
-            if(node.HasChildNodes)
+            if (node.HasChildNodes)
             {
                 foreach (XmlNode item in node.ChildNodes)
                 {
@@ -192,39 +193,73 @@ namespace ConsoleApplication1
             Console.Title = "My C#";
 
 
-            XmlDocument doc = new XmlDocument();
-            doc.Load("https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange");
-           
-            XmlNodeList list1 = doc.GetElementsByTagName("r030");
-            XmlNodeList list2 = doc.GetElementsByTagName("txt");
-            XmlNodeList list3 = doc.GetElementsByTagName("rate");
-            XmlNodeList list4 = doc.GetElementsByTagName("cc");
-            
-            List<Currency> val = new List<Currency>();
-            for (int i = 0; i < list1.Count; i++)
-            {
-                val.Add(new Currency
-                {
-                    r030 = int.Parse(list1[i].InnerText),
-                    txt = list2[i].InnerText,
-                    rate = float.Parse(list3[i].InnerText.Replace('.', ',')),
-                    cc = list4[i].InnerText
-                });
-             }
+            //Console.WriteLine("Class Attribute");
+            //foreach (var item in typeof(Vector).GetCustomAttributes(true))
+            //{
+            //    Console.WriteLine(item);
+            //}
 
-            List<Currency> res = val.FindAll(c => c.rate > 10);
+            //Console.WriteLine("Method Attribute");
+            //foreach (var item in typeof(Vector).GetMethods())
+            //{
+            //    foreach (var attr in item.GetCustomAttributes(true))
+            //    {
+            //        Console.WriteLine($"Method {item.Name}   -  Attr { attr}");
+            //    }
+            //}
 
-            IEnumerable<Currency> result =
-                from i
-                in val
-                where i.rate < 10
-                select i;
+            Vector v = new Vector(3, 5);
+            Console.WriteLine(v);
 
-            foreach (var item in result)
-            {
-                Console.WriteLine(item);
-            }
-                  
+            //+38(044)125-56-45
+
+            //string pattern = @"^\+\d{2}\(0\d{2}\)\d{3}[\s-]\d{2}[\s-]\d{2}$"; 
+            //string pattern = @"^[А-ЯЁA-Z][\'a-zа-яё]*(\-[А-ЯЁA-Z][\'a-zа-яё]*)*\s+[А-ЯЁA-Z][a-zа-яё]*$";
+            //string pattern = @"^\w{8,14}$";
+            //string pattern = @"^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,}$";
+            //Regex regex = new Regex(pattern);
+            //while (true)
+            //{
+            //    string str = Console.ReadLine();
+            //    Console.WriteLine(regex.IsMatch(str) ? "Correct" : "Invalid");
+            //}
+
+
+
+
+            //XmlDocument doc = new XmlDocument();
+            //doc.Load("https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange");
+
+            //XmlNodeList list1 = doc.GetElementsByTagName("r030");
+            //XmlNodeList list2 = doc.GetElementsByTagName("txt");
+            //XmlNodeList list3 = doc.GetElementsByTagName("rate");
+            //XmlNodeList list4 = doc.GetElementsByTagName("cc");
+
+            //List<Currency> val = new List<Currency>();
+            //for (int i = 0; i < list1.Count; i++)
+            //{
+            //    val.Add(new Currency
+            //    {
+            //        r030 = int.Parse(list1[i].InnerText),
+            //        txt = list2[i].InnerText,
+            //        rate = float.Parse(list3[i].InnerText.Replace('.', ',')),
+            //        cc = list4[i].InnerText
+            //    });
+            // }
+
+            //List<Currency> res = val.FindAll(c => c.rate > 10);
+
+            //IEnumerable<Currency> result =
+            //    from i
+            //    in val
+            //    where i.rate < 10
+            //    select i;
+
+            //foreach (var item in result)
+            //{
+            //    Console.WriteLine(item);
+            //}
+
 
             //XmlTextReader reader = new XmlTextReader("Computers.xml");
             //reader.WhitespaceHandling = WhitespaceHandling.None;
@@ -346,7 +381,7 @@ namespace ConsoleApplication1
             //writer.Close();
 
 
-            //Payment.SerializationAll = true;
+            //Payment.SerializationAll = false;
             //Payment pay = new Payment(2, 5, 3, 2);
             //Console.WriteLine(pay);
             //SoapFormatter soap = new SoapFormatter();
